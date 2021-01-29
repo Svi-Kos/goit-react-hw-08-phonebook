@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
 import './App.css';
-// import * as operations from 'redux/operations';
+import { authOperations } from 'redux/auth';
 import Container from 'components/Container/Container';
 import AppBar from 'components/AppBar/AppBar';
 // import ContactList from './components/ContactList';
@@ -14,12 +14,12 @@ import RegisterView from 'views/RegisterView';
 import ContactsView from 'views/ContactsView';
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(operations.fetchContacts());
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>

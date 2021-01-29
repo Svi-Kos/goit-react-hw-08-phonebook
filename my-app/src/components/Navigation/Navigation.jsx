@@ -14,18 +14,6 @@ const Navigation = () => (
     >
       Contacts
     </NavLink>
-    {/* <NavLink to="/" exact style={styles.link} activeStyle={styles.activeLink}>
-      Главная
-    </NavLink>
-
-    <NavLink
-      to="/contacts"
-      exact
-      style={styles.link}
-      activeStyle={styles.activeLink}
-    >
-      Заметки
-    </NavLink> */}
   </nav>
 );
 

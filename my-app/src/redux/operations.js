@@ -11,7 +11,7 @@ import {
   fetchContactError,
 } from 'redux/actions';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
 
 export const fetchContacts = () => async dispatch => {
   dispatch(fetchContactRequest());
