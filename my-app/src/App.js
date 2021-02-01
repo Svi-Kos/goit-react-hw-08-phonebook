@@ -1,20 +1,36 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import React, { useEffect, Suspense, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from 'react-router-dom';
 import './App.css';
-import { authOperations } from 'redux/auth';
+import { authOperations, authSelectors } from 'redux/auth';
 import Container from 'components/Container/Container';
 import AppBar from 'components/AppBar/AppBar';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
 // import ContactList from './components/ContactList';
 // import ContactForm from 'components/ContactForm/ContactForm';
 // import Filter from 'components/Filter/Filter';
-import HomeView from 'views/HomeView';
-import LoginView from 'views/LoginView';
-import RegisterView from 'views/RegisterView';
-import ContactsView from 'views/ContactsView';
+// import HomeView from 'views/HomeView';
+// import LoginView from 'views/LoginView';
+// import RegisterView from 'views/RegisterView';
+// import ContactsView from 'views/ContactsView';
+
+const HomeView = lazy(() =>
+  import('views/HomeView' /* webpackChunkName: "home-view" */),
+);
+const LoginView = lazy(() =>
+  import('views/LoginView' /* webpackChunkName: "login-view" */),
+);
+const RegisterView = lazy(() =>
+  import('views/RegisterView' /* webpackChunkName: "register-view" */),
+);
+const ContactsView = lazy(() =>
+  import('views/ContactsView' /* webpackChunkName: "contacts-view" */),
+);
 
 function App() {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
@@ -22,16 +38,27 @@ function App() {
   }, []);
 
   return (
-    <Container>
-      <AppBar />
+    !isFetchingCurrentUser && (
+      <Container>
+        <AppBar />
 
-      <Switch>
-        <Route path="/" exact component={HomeView}></Route>
-        <Route path="/login" component={LoginView}></Route>
-        <Route path="/register" component={RegisterView}></Route>
-        <Route path="/contacts" component={ContactsView}></Route>
-      </Switch>
-      {/* <div>
+        <Switch>
+          <Suspense fallback={<p>Loading...</p>}>
+            <PublicRoute path="/" exact>
+              <HomeView />
+            </PublicRoute>
+            <PublicRoute path="/login" redirectTo="/contacts" restricted>
+              <LoginView />
+            </PublicRoute>
+            <PublicRoute path="/register" restricted>
+              <RegisterView />
+            </PublicRoute>
+            <PrivateRoute path="/contacts">
+              <ContactsView />
+            </PrivateRoute>
+          </Suspense>
+        </Switch>
+        {/* <div>
         <h1>Phonebook</h1>
         <ContactForm />
 
@@ -39,7 +66,8 @@ function App() {
         <Filter />
         <ContactList />
       </div> */}
-    </Container>
+      </Container>
+    )
   );
 }
 
