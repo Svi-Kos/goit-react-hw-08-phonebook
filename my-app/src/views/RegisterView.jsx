@@ -1,5 +1,7 @@
+import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { TextField, Button } from '@material-ui/core';
 import { authOperations } from 'redux/auth';
 
 const styles = {
@@ -10,6 +12,7 @@ const styles = {
     padding: 50,
   },
   form: {
+    display: 'grid',
     width: 320,
   },
   label: {
@@ -51,37 +54,36 @@ export default function RegisterView() {
       {' '}
       <div>
         <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-          <label style={styles.label}>
-            Имя
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={handleChange}
-            />
-          </label>
+          <TextField
+            label="Name"
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
 
-          <label style={styles.label}>
-            Почта
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label style={styles.label}>
-            Пароль
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
-          </label>
-
-          <button type="submit">Зарегистрироваться</button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ marginTop: '15px' }}
+          >
+            Register
+          </Button>
         </form>
       </div>
     </div>

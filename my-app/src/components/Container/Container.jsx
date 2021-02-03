@@ -1,5 +1,5 @@
-import s from './Container.module.css';
+import { Container } from '@material-ui/core';
 
-export default function Container({ children }) {
-  return <div className={s.container}>{children}</div>;
+export default function ContainerElem({ children }) {
+  return <Container fixed>{children}</Container>;
 }

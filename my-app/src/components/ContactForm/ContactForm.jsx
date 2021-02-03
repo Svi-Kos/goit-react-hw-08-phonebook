@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { TextField, Button } from '@material-ui/core';
 import * as operations from 'redux/operations';
 import s from '../ContactForm/ContactForm.module.css';
 
@@ -38,31 +39,30 @@ function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.contactForm}>
-      <label className={s.contactFormLabel}>
-        Name
-        <input
-          type="text"
-          required
-          name="name"
-          value={name}
-          onChange={handleChange}
-        />
-      </label>
-      <label className={s.contactFormLabel}>
-        Number
-        <input
-          type="tel"
-          pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
-          required
-          name="number"
-          value={number}
-          onChange={handleChange}
-        />
-        <p className={s.numberFormat}>Format: xxx-xx-xx</p>
-      </label>
-      <button type="submit" className={s.contactFormBtn}>
+      <TextField
+        label="Name"
+        type="text"
+        name="name"
+        value={name}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Number"
+        type="tel"
+        pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
+        name="number"
+        value={number}
+        onChange={handleChange}
+      />
+      <p className={s.numberFormat}>Format: xxx-xx-xx</p>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        style={{ marginTop: '15px' }}
+      >
         Add contact
-      </button>
+      </Button>
     </form>
   );
 }
