@@ -8,8 +8,8 @@ import Filter from 'components/Filter/Filter';
 const styles = {
   container: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'baseline',
+    justifyContent: 'space-around',
     padding: 50,
   },
 };
@@ -28,7 +28,9 @@ export default function ContactsView() {
       <div>
         <h1>Phonebook</h1>
         <ContactForm />
-
+      </div>{' '}
+      <div>
+        {' '}
         <h2>Contacts</h2>
         <Filter />
         <ContactList />
