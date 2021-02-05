@@ -12,15 +12,19 @@ const token = {
   },
 };
 
-const register = createAsyncThunk('auth/register', async credentials => {
-  try {
-    const { data } = await axios.post('/users/signup', credentials);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    new Error(error);
-  }
-});
+const register = createAsyncThunk(
+  'auth/register',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/signup', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      alert('There was a problem creating your account');
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const logIn = createAsyncThunk(
   'auth/login',
@@ -30,6 +34,7 @@ const logIn = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
+      alert('You have entered an invalid username or password');
       return rejectWithValue(error);
     }
   },

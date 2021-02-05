@@ -7,13 +7,6 @@ import Container from 'components/Container/Container';
 import AppBar from 'components/AppBar/AppBar';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
-// import ContactList from './components/ContactList';
-// import ContactForm from 'components/ContactForm/ContactForm';
-// import Filter from 'components/Filter/Filter';
-// import HomeView from 'views/HomeView';
-// import LoginView from 'views/LoginView';
-// import RegisterView from 'views/RegisterView';
-// import ContactsView from 'views/ContactsView';
 
 const HomeView = lazy(() =>
   import('views/HomeView' /* webpackChunkName: "home-view" */),
@@ -58,14 +51,6 @@ function App() {
             </PrivateRoute>
           </Suspense>
         </Switch>
-        {/* <div>
-        <h1>Phonebook</h1>
-        <ContactForm />
-
-        <h2>Contacts</h2>
-        <Filter />
-        <ContactList />
-      </div> */}
       </Container>
     )
   );
